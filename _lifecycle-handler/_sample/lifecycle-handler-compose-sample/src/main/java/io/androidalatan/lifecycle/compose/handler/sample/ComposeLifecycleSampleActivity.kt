@@ -31,7 +31,7 @@ class ComposeLifecycleSampleActivity : ComposeLifecycleActivity() {
     @SuppressLint("ComposableNaming")
     @Composable
     override fun contentView() {
-        ComposeLifecycleSampleActivityComposeLocalProvider {
+        ComposeLocalProvider {
             Column {
                 TopLayout()
                 HelloWorld1(viewModel())
