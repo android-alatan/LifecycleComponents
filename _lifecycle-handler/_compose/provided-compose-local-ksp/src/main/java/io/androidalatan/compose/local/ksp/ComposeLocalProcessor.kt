@@ -21,7 +21,6 @@ import com.squareup.kotlinpoet.LambdaTypeName
 import com.squareup.kotlinpoet.ParameterSpec
 import com.squareup.kotlinpoet.ParameterizedTypeName.Companion.parameterizedBy
 import com.squareup.kotlinpoet.PropertySpec
-import com.squareup.kotlinpoet.asClassName
 import com.squareup.kotlinpoet.buildCodeBlock
 import io.androidalatan.compose.local.ksp.api.ProvidedComposeLocal
 import java.io.OutputStreamWriter
@@ -77,66 +76,16 @@ class ComposeLocalProcessor(
         val composableSpec =
             AnnotationSpec.builder(COMPOSABLE)
                 .build()
-        val deprecatedSpec = deprecatedSpec()
+
+        val contentParameterSpec = composableContentSpec(composableSpec)
 
         val array = properties.filter { it.parentDeclaration == owner }
             .map { it.toClassName() }
-
-        val legacyProviderValue = array
-            .map { propertyClassName ->
-                "${propertyClassName.simpleName}ProviderValue(owner.${propertyClassName.simpleName})"
-            }
-            .toTypedArray()
-
-        val contentParameterSpec = composableContentSpec(composableSpec)
-        val ownerParamSpec = ownerParamSpec(ownerClassName)
-
-        if (isLifecycleOwner(owner)) {
-            fileSpecBuilder.addFunction(
-                FunSpec.builder("${owner.simpleName.asString()}ComposeLocalProvider")
-                    .addAnnotation(composableSpec)
-                    .addAnnotation(deprecatedSpec)
-                    .addModifiers(KModifier.INTERNAL)
-                    .addParameter(contentParameterSpec)
-                    .addStatement("val owner =  LocalLifecycleOwner.current as ${ownerClassName.canonicalName}")
-                    .addStatement(
-                        "${COMPOSITION_LOCAL_PROVIDER.simpleName}(${
-                            array.map { "\n%L" }
-                                .joinToString { it }
-                        }, \ncontent = %N\n)",
-                        *legacyProviderValue,
-                        contentParameterSpec
-                    )
-                    .build()
-            )
-        }
-
-        fileSpecBuilder.addFunction(
-            FunSpec.builder("${owner.simpleName.asString()}ComposeLocalProviderWithOwner")
-                .addAnnotation(composableSpec)
-                .addAnnotation(deprecatedSpec)
-                .addModifiers(KModifier.INTERNAL)
-                .addParameter(ownerParamSpec)
-                .addParameter(contentParameterSpec)
-                .addStatement(
-                    "${COMPOSITION_LOCAL_PROVIDER.simpleName}(${
-                        array.map { "\n%L" }
-                            .joinToString { it }
-                    }, \ncontent = %N\n)",
-                    *legacyProviderValue,
-                    contentParameterSpec
-                )
-                .build()
-        )
-            .build()
-
-        val newProviderValues = array
             .map { propertyClassName ->
                 "${propertyClassName.simpleName}ProviderValue(${propertyClassName.simpleName})"
             }
             .toTypedArray()
 
-        // Extension ComposeLocalProvider
         fileSpecBuilder.addFunction(
             FunSpec.builder("ComposeLocalProvider")
                 .addAnnotation(composableSpec)
@@ -149,7 +98,7 @@ class ComposeLocalProcessor(
                             .map { "\n%L" }
                             .joinToString { it }
                     }, \ncontent = %N\n)",
-                    *newProviderValues,
+                    *array,
                     contentParameterSpec
                 )
                 .build()
@@ -193,11 +142,6 @@ class ComposeLocalProcessor(
         )
             .copy(annotations = listOf(composableSpec))
     )
-        .build()
-
-    private fun deprecatedSpec() = AnnotationSpec.builder(Deprecated::class.asClassName())
-        .addMember("message = \"Convert ComposeLocalProvider\"")
-        .addMember("replaceWith = ReplaceWith(\"ComposeLocalProvider(content)\")")
         .build()
 
     class ProvidedComposeLocalVisitor(
