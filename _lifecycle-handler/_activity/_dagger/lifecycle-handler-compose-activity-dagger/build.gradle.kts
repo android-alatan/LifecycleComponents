@@ -9,8 +9,9 @@ dependencies {
     api(projects.lifecycleHandlerComposeActivity)
     api(projects.daggerBaseBuilder)
 
-    implementation(libs.dagger.android)
-    implementation(libs.dagger.baseCompiler)
     implementation(libs.google.material)
+
+    implementation(libs.dagger.android)
+    kapt(libs.dagger.baseCompiler)
 
 }

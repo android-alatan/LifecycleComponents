@@ -54,7 +54,7 @@ afterEvaluate {
 }
 
 fun groupId(): String {
-    return "io.androidalatan.libs"
+    return "com.github.android-alatan.lifecyclecomponents"
 }
 
 fun addDependency(dependencyNode: groovy.util.Node, dep: Dependency, scope: String) {
