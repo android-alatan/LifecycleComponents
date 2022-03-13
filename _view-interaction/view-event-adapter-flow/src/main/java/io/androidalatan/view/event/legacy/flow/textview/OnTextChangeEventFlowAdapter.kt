@@ -5,7 +5,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 
-fun OnTextChangeEvent.onSizeChangeAsFlow(): Flow<OnTextChangeEvent.TextChangeInfo> {
+fun OnTextChangeEvent.onTextChangeAsFlow(): Flow<OnTextChangeEvent.TextChangeInfo> {
     return callbackFlow {
         val callback = OnTextChangeEvent.Callback { textChangeInfo ->
             trySend(textChangeInfo)
