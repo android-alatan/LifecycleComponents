@@ -8,7 +8,8 @@ class OnLongClickEventImpl(private val view: View) : OnLongClickEvent {
     override fun registerOnLongClickEvent(callback: OnLongClickEvent.Callback) {
         if (callbacks.isEmpty()) {
             view.setOnClickListener {
-                callbacks.forEach(OnLongClickEvent.Callback::onLongClick)
+                (callbacks.size - 1 downTo 0).map { callbacks[it] }
+                    .forEach(OnLongClickEvent.Callback::onLongClick)
             }
         }
         callbacks.add(callback)

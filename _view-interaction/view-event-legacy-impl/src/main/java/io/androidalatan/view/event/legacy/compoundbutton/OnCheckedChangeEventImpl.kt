@@ -9,7 +9,8 @@ class OnCheckedChangeEventImpl(private val view: CompoundButton) : OnCheckedChan
     override fun registerOnCheckChangeCallback(callback: OnCheckedChangeEvent.Callback) {
         if (callbacks.isEmpty()) {
             view.setOnCheckedChangeListener { _, isChecked ->
-                callbacks.forEach { it.onCheckChange(isChecked) }
+                (callbacks.size - 1 downTo 0).map { callbacks[it] }
+                    .forEach { it.onCheckChange(isChecked) }
             }
         }
 

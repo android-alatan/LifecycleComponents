@@ -44,7 +44,8 @@ class MockViewEvent : EventTrigger, ViewEvent, TextViewEvent, CompoundButtonEven
     }
 
     override fun click() {
-        onClicks.forEach { it.onClick() }
+        (onClicks.size - 1 downTo 0).map { onClicks[it] }
+            .forEach { it.onClick() }
     }
 
     override fun registerOnFocusChangeEvent(callback: OnFocusChangeEvent.Callback) {
@@ -59,7 +60,8 @@ class MockViewEvent : EventTrigger, ViewEvent, TextViewEvent, CompoundButtonEven
     override fun newFocus(newFocused: Boolean) {
         if (this.focused != newFocused) {
             this.focused = newFocused
-            onFocusChanges.forEach { it.onFocusChange(newFocused) }
+            (onFocusChanges.size - 1 downTo 0).map { onFocusChanges[it] }
+                .forEach { it.onFocusChange(newFocused) }
         }
     }
 
@@ -72,7 +74,8 @@ class MockViewEvent : EventTrigger, ViewEvent, TextViewEvent, CompoundButtonEven
     }
 
     override fun longClick() {
-        onLongClicks.forEach { it.onLongClick() }
+        (onLongClicks.size - 1 downTo 0).map { onLongClicks[it] }
+            .forEach { it.onLongClick() }
     }
 
     override fun registerOnSizeChangeCallback(callback: OnSizeChangeEvent.Callback) {
@@ -87,7 +90,8 @@ class MockViewEvent : EventTrigger, ViewEvent, TextViewEvent, CompoundButtonEven
     override fun newSize(newSize: OnSizeChangeEvent.ViewSize) {
         if (this.size != newSize) {
             this.size = newSize
-            onSizeChanges.forEach { it.onSizeChange(newSize) }
+            (onSizeChanges.size - 1 downTo 0).map { onSizeChanges[it] }
+                .forEach { it.onSizeChange(newSize) }
         }
     }
 
@@ -103,7 +107,8 @@ class MockViewEvent : EventTrigger, ViewEvent, TextViewEvent, CompoundButtonEven
     override fun newText(newText: OnTextChangeEvent.TextChangeInfo) {
         if (this.text != newText) {
             this.text = newText
-            onTextChanges.forEach { it.onTextChange(newText) }
+            (onTextChanges.size - 1 downTo 0).map { onTextChanges[it] }
+                .forEach { it.onTextChange(newText) }
         }
     }
 
@@ -119,7 +124,8 @@ class MockViewEvent : EventTrigger, ViewEvent, TextViewEvent, CompoundButtonEven
     override fun newCheck(newChecked: Boolean) {
         if (this.checked != newChecked) {
             this.checked = newChecked
-            onCheckeChanges.forEach { it.onCheckChange(newChecked) }
+            (onCheckeChanges.size - 1 downTo 0).map { onCheckeChanges[it] }
+                .forEach { it.onCheckChange(newChecked) }
         }
     }
 
@@ -132,7 +138,8 @@ class MockViewEvent : EventTrigger, ViewEvent, TextViewEvent, CompoundButtonEven
     }
 
     override fun itemClick(item: OnItemOfListClickEvent.ClickedItem<Any>) {
-        onItemClicks.forEach { it.onItemClick(item) }
+        (onItemClicks.size - 1 downTo 0).map { onItemClicks[it] }
+            .forEach { it.onItemClick(item) }
     }
 
     override fun registerOnTabSelectCallback(callback: OnTabSelectEvent.Callback) {
@@ -146,8 +153,11 @@ class MockViewEvent : EventTrigger, ViewEvent, TextViewEvent, CompoundButtonEven
 
     override fun newTab(newTab: OnTabSelectEvent.SelectedTab) {
         if (newTab.type == OnTabSelectEvent.SelectedEventType.SELECTED && this.lastSelectedTab.position != newTab.position) {
-            onTabSelects.forEach { it.onTabSelect(lastSelectedTab.copy(type = OnTabSelectEvent.SelectedEventType.UNSELECTED)) }
-            onTabSelects.forEach { it.onTabSelect(newTab) }
+            (onTabSelects.size - 1 downTo 0).map { onTabSelects[it] }
+                .forEach {
+                    it.onTabSelect(lastSelectedTab.copy(type = OnTabSelectEvent.SelectedEventType.UNSELECTED))
+                    it.onTabSelect(newTab)
+                }
             this.lastSelectedTab = newTab
         }
     }
@@ -161,7 +171,8 @@ class MockViewEvent : EventTrigger, ViewEvent, TextViewEvent, CompoundButtonEven
     }
 
     override fun menuItemClick(itemId: Int) {
-        onMenuItemClicks.forEach { it.onNavigationMenuItemClick(itemId) }
+        (onMenuItemClicks.size - 1 downTo 0).map { onMenuItemClicks[it] }
+            .forEach { it.onNavigationMenuItemClick(itemId) }
     }
 
     override fun registerOnNavigationClickEvent(callback: OnToolbarNavigationClick.Callback) {
@@ -173,6 +184,7 @@ class MockViewEvent : EventTrigger, ViewEvent, TextViewEvent, CompoundButtonEven
     }
 
     override fun onNavClick() {
-        onNavigationClicks.forEach { it.onToolbarNavigationClick() }
+        (onNavigationClicks.size - 1 downTo 0).map { onNavigationClicks[it] }
+            .forEach { it.onToolbarNavigationClick() }
     }
 }

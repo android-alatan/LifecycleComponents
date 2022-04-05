@@ -8,7 +8,8 @@ class OnToolbarNavigationClickImpl(private val toolbar: Toolbar) : OnToolbarNavi
     override fun registerOnNavigationClickEvent(callback: OnToolbarNavigationClick.Callback) {
         if (callbacks.isEmpty()) {
             toolbar.setNavigationOnClickListener {
-                callbacks.forEach { it.onToolbarNavigationClick() }
+                (callbacks.size - 1 downTo 0).map { callbacks[it] }
+                    .forEach { it.onToolbarNavigationClick() }
             }
         }
 

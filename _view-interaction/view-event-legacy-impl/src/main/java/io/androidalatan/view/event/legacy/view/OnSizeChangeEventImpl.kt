@@ -22,7 +22,7 @@ class OnSizeChangeEventImpl(private val view: View) : OnSizeChangeEvent {
     private fun initListenerIfNeed() {
         if (callbacks.isEmpty()) {
             val listener = ViewTreeObserver.OnGlobalLayoutListener {
-                callbacks.forEach {
+                (callbacks.size - 1 downTo 0).map { callbacks[it] }.forEach {
                     it.onSizeChange(
                         OnSizeChangeEvent.ViewSize(
                             view.width,

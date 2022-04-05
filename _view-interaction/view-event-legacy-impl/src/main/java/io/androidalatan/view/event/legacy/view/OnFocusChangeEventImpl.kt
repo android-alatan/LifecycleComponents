@@ -10,7 +10,8 @@ class OnFocusChangeEventImpl(private val view: View) : OnFocusChangeEvent {
     override fun registerOnFocusChangeEvent(callback: OnFocusChangeEvent.Callback) {
         if (callbacks.isEmpty()) {
             val onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-                callbacks.forEach { it.onFocusChange(hasFocus) }
+                (callbacks.size - 1 downTo 0).map { callbacks[it] }
+                    .forEach { it.onFocusChange(hasFocus) }
             }
             view.onFocusChangeListener = onFocusChangeListener
         }

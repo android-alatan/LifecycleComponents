@@ -12,7 +12,7 @@ class OnTabSelectEventImpl(private val tabLayout: TabLayout) : OnTabSelectEvent 
         if (callbacks.isEmpty()) {
             val listener = object : TabLayout.OnTabSelectedListener {
                 override fun onTabSelected(tab: TabLayout.Tab) {
-                    callbacks.forEach {
+                    (callbacks.size - 1 downTo 0).map { callbacks[it] }.forEach {
                         it.onTabSelect(
                             OnTabSelectEvent.SelectedTab(
                                 tab.position,
@@ -23,7 +23,7 @@ class OnTabSelectEventImpl(private val tabLayout: TabLayout) : OnTabSelectEvent 
                 }
 
                 override fun onTabUnselected(tab: TabLayout.Tab) {
-                    callbacks.forEach {
+                    (callbacks.size - 1 downTo 0).map { callbacks[it] }.forEach {
                         it.onTabSelect(
                             OnTabSelectEvent.SelectedTab(
                                 tab.position,
@@ -34,7 +34,7 @@ class OnTabSelectEventImpl(private val tabLayout: TabLayout) : OnTabSelectEvent 
                 }
 
                 override fun onTabReselected(tab: TabLayout.Tab) {
-                    callbacks.forEach {
+                    (callbacks.size - 1 downTo 0).map { callbacks[it] }.forEach {
                         it.onTabSelect(
                             OnTabSelectEvent.SelectedTab(
                                 tab.position,

@@ -18,7 +18,7 @@ class OnTextChangeEventImpl(private val textView: TextView) : OnTextChangeEvent 
                 }
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    callbacks.forEach {
+                    (callbacks.size - 1 downTo 0).map { callbacks[it] }.forEach {
                         it.onTextChange(
                             OnTextChangeEvent.TextChangeInfo(
                                 text = s?.toString() ?: "",

@@ -9,7 +9,8 @@ class OnToolbarMenuItemClickImpl(private val toolbar: Toolbar) : OnToolbarMenuIt
     override fun registerOnMenuItemClickEvent(callback: OnToolbarMenuItemClick.Callback) {
         if (callbacks.isEmpty()) {
             toolbar.setOnMenuItemClickListener { item ->
-                callbacks.forEach { it.onNavigationMenuItemClick(item.itemId) }
+                (callbacks.size - 1 downTo 0).map { callbacks[it] }
+                    .forEach { it.onNavigationMenuItemClick(item.itemId) }
                 true
             }
         }
