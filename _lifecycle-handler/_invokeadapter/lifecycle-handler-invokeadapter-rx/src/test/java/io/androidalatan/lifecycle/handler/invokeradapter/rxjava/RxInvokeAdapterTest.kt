@@ -6,13 +6,14 @@ import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.flow.Flow
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 class RxInvokeAdapterTest {
 
-    private val adapter = RxInvokeAdapter {}
+    private val adapter = RxInvokeAdapter(Schedulers.trampoline()) {}
 
     @Test
     fun acceptableInvoke() {

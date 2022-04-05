@@ -7,12 +7,14 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.internal.functions.Functions
 import java.lang.reflect.Type
 
 class RxInvokeAdapter(
+    private val scheduler: Scheduler,
     private val logger: ErrorLogger
 ) : InvokeAdapter<Disposable> {
 
@@ -24,22 +26,27 @@ class RxInvokeAdapter(
         return when (val bodyValue = body()) {
             is Observable<*> -> {
                 Observable.defer { bodyValue }
+                    .subscribeOn(scheduler)
                     .subscribe(Functions.emptyConsumer(), logger::e)
             }
             is Single<*> -> {
                 Single.defer { bodyValue }
+                    .subscribeOn(scheduler)
                     .subscribe(Functions.emptyConsumer(), logger::e)
             }
             is Completable -> {
                 Completable.defer { bodyValue }
+                    .subscribeOn(scheduler)
                     .subscribe(Functions.EMPTY_ACTION, logger::e)
             }
             is Flowable<*> -> {
                 Flowable.defer { bodyValue }
+                    .subscribeOn(scheduler)
                     .subscribe(Functions.emptyConsumer(), logger::e)
             }
             is Maybe<*> -> {
                 Maybe.defer { bodyValue }
+                    .subscribeOn(scheduler)
                     .subscribe(Functions.emptyConsumer(), logger::e)
             }
             else -> Disposable.disposed()
@@ -59,9 +66,9 @@ class RxInvokeAdapter(
             hashSetOf<Type>(Observable::class.java, Single::class.java, Completable::class.java, Flowable::class.java, Maybe::class.java)
     }
 
-    class Factory : InvokeAdapter.Factory<Disposable> {
+    class Factory(private val scheduler: Scheduler) : InvokeAdapter.Factory<Disposable> {
         override fun create(lifecycle: Lifecycle, logger: ErrorLogger): InvokeAdapter<Disposable> {
-            return RxInvokeAdapter(logger)
+            return RxInvokeAdapter(scheduler, logger)
         }
     }
 

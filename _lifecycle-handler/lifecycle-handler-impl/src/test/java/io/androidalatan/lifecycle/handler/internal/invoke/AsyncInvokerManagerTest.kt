@@ -10,6 +10,7 @@ import io.androidalatan.lifecycle.handler.invokeradapter.rxjava.RxInvokeAdapter
 import io.androidalatan.view.event.api.ViewInteractionStream
 import io.androidalatan.view.event.impl.ViewInteractionStreamImpl
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineScope
 import org.junit.jupiter.api.Assertions
@@ -23,7 +24,7 @@ internal class AsyncInvokerManagerTest {
     private val manager =
         AsyncInvokerManager(
             mapOf(ViewInteractionStream::class.java to ViewInteractionStreamImpl()),
-            listOf(RxInvokeAdapter {}, FlowInvokeAdapter(TestCoroutineScope()) {})
+            listOf(RxInvokeAdapter(Schedulers.trampoline()) {}, FlowInvokeAdapter(TestCoroutineScope()) {})
         )
     private val analyzer = ListenerAnalyzer()
 

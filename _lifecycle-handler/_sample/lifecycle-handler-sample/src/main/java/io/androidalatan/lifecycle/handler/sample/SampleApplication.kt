@@ -18,7 +18,7 @@ class SampleApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         InvokeAdapterInitializer.initialize(
-            factories = listOf(FlowInvokeAdapter.Factory(), RxInvokeAdapter.Factory()),
+            factories = listOf(FlowInvokeAdapter.Factory(), RxInvokeAdapter.Factory(SchedulerProvider().computation())),
             errorLogger = { Log.e("InvokeManager", "InvokeManager got error", it) }
         )
 
