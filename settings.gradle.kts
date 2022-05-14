@@ -83,6 +83,7 @@ include(
     ":lifecycle-handler-invokeadapter-api",
     ":lifecycle-handler-invokeadapter-rx",
     ":lifecycle-handler-invokeadapter-flow",
+    ":lifecycle-handler-invokeadapter-test",
     ":lifecycle-handler-impl",
     ":lifecycle-handler-lint",
 
