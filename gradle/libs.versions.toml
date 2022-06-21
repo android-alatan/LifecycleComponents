@@ -46,6 +46,8 @@ test-mockito = "3.12.4"
 test-mockitoKotlin = "3.2.0"
 
 [libraries]
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+
 common-moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
 common-moshiCompiler = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
 common-javaX = { module = "javax.inject:javax.inject", version.ref = "javaX" }
@@ -55,7 +57,6 @@ common-rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava"
 common-rxjavaAndroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxjavaAndroid" }
 common-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutine" }
 common-recyclerview = { module = "androidx.recyclerview:recyclerview", version = "1.2.0" }
-
 
 compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
 compose-runtimeLiveData = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
