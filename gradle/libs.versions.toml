@@ -3,40 +3,43 @@ androidAnnotation = "1.1.0"
 moshi = "1.13.0"
 javaX = "1"
 kotlinPoet = "1.8.0"
-ksp = "1.6.10-1.0.3"
-kotlin = { prefer = "1.6.10" }
-agp = "7.1.1"
+ksp = "1.7.0-1.0.6"
+kotlin = "1.7.0"
+agp = "7.2.1"
 junit5 = "5.8.2"
-detekt = "1.19.0"
+detekt = "1.21.0"
 kotlinDsl = "2.2.0"
-mavenPublish = "0.18.0"
-jacoco = "0.8.7"
-jsonParser = "0.1.0"
+jacoco = "0.8.8"
+jsonParser = "0.1.2"
 androidBuildTool = "32.0.0"
 androidCompile = "32"
 targetSdk = "32"
 minSdk = "21"
-rxjava = "3.1.1"
+rxjava = "3.1.5"
 rxjavaAndroid = "3.0.0"
-coroutine = "1.5.0"
+coroutine = "1.6.4"
+turbine = "0.8.0"
 androidxTest-junit = "1.1.3"
 androidxTest-core = "1.4.0"
 roboletric = "4.5.1"
-androidLint = "30.1.1"
-androidx-compat = "1.3.1"
-androidx-activity = "1.4.0"
-androidx-lifecycle = "2.4.1"
-androidx-constraintlayout = "2.1.3"
+androidLint = "30.2.1"
+androidx-compat = "1.4.2"
+androidx-activity = "1.5.0"
+androidx-lifecycle = "2.5.0"
+androidx-constraintlayout = "2.1.4"
 androidx-material = "1.5.0"
-compose = "1.1.1"
-alatan-bundledata = "0.1.0"
-alatan-coroutine = "0.1.0"
-alatan-resourceprovider = "0.1.0"
-alatan-alerts = "0.1.0"
-alatan-rxjava = "0.1.0"
-alatan-databinding = "0.1.0"
-alatan-preferences = "0.1.0"
-dagger = "2.38.1"
+androidx-recyclerview = "1.2.1"
+androidx-collection = "1.2.0"
+compose-runtime = "1.1.1"
+compose-compiler = "1.2.0"
+alatan-bundledata = "0.1.1"
+alatan-coroutine = "0.1.1"
+alatan-resourceprovider = "0.1.1"
+alatan-alerts = "0.1.2"
+alatan-rxjava = "0.1.1"
+alatan-databinding = "0.1.1"
+alatan-preferences = "0.1.4"
+dagger = "2.42"
 
 
 # test
@@ -56,19 +59,19 @@ common-kspProcessingApi = { module = "com.google.devtools.ksp:symbol-processing-
 common-rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava" }
 common-rxjavaAndroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxjavaAndroid" }
 common-coroutine = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutine" }
-common-recyclerview = { module = "androidx.recyclerview:recyclerview", version = "1.2.0" }
+common-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx.recyclerview" }
 
-compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose" }
-compose-runtimeLiveData = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose" }
-compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
-compose-material = { module = "androidx.compose.material:material", version.ref = "compose" }
+compose-runtime = { module = "androidx.compose.runtime:runtime", version.ref = "compose.runtime" }
+compose-runtimeLiveData = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "compose.runtime" }
+compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose.runtime" }
+compose-material = { module = "androidx.compose.material:material", version.ref = "compose.runtime" }
 
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidAnnotation" }
 androidx-compat = { module = "androidx.appcompat:appcompat", version.ref = "androidx.compat" }
 androidx-activity = { module = "androidx.activity:activity", version.ref = "androidx.activity" }
 androidx-composeactivity = { module = "androidx.activity:activity-compose", version.ref = "androidx.activity" }
 androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx.constraintlayout" }
-androidx-collection = { module = "androidx.collection:collection", version = "1.2.0" }
+androidx-collection = { module = "androidx.collection:collection", version.ref = "androidx.collection" }
 androidx-databinding-runtime = { module = "androidx.databinding:databinding-runtime", version.ref = "agp" }
 androidx-databinding-common = { module = "androidx.databinding:databinding-common", version.ref = "agp" }
 
@@ -141,7 +144,7 @@ test-jupiterEngine = { module = "org.junit.jupiter:junit-jupiter-engine", versio
 test-jupiterVintage = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit5" }
 test-mockito = { module = "org.mockito:mockito-core", version.ref = "test.mockito" }
 test-mockitoKotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "test.mockitoKotlin" }
-test-turbine = { module = "app.cash.turbine:turbine", version = "0.7.0" }
+test-turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 test-coroutineTest = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutine" }
 test-robolectric-core = { module = "org.robolectric:robolectric", version.ref = "roboletric" }
 test-robolectric-shadow = { module = "org.robolectric:shadowapi", version.ref = "roboletric" }
@@ -171,4 +174,3 @@ kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
-mavenPublish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }

@@ -8,7 +8,7 @@ import io.androidalatan.request.permission.api.PermissionResult
 import io.androidalatan.request.permission.api.exception.PermissionGrantException
 
 class MockPermissionHandler(
-    @VisibleForTesting internal val permissionExplanationBuilderFactory: MockPermissionExplanationBuilderFactory
+    @get:VisibleForTesting internal val permissionExplanationBuilderFactory: MockPermissionExplanationBuilderFactory
 ) : PermissionHandler {
 
     private val failCallback = mutableMapOf<Int, (Exception) -> Unit>()

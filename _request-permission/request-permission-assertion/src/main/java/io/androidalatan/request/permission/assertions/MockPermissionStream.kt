@@ -5,7 +5,7 @@ import io.androidalatan.request.permission.api.PermissionResult
 import io.androidalatan.request.permission.api.PermissionStream
 
 class MockPermissionStream(
-    @VisibleForTesting val handler: MockPermissionHandler = MockPermissionHandler(
+    @get:VisibleForTesting val handler: MockPermissionHandler = MockPermissionHandler(
         MockPermissionExplanationBuilderFactory()
     )
 ) : PermissionStream {
